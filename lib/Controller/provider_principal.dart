@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class ProviderPrincipal extends ChangeNotifier {
   int _paginaActual = 1;
-  late PageController _pageController = PageController(initialPage: 0);
+  late PageController _pageController = PageController(initialPage: 1);
 
   ProviderPrincipal();
 

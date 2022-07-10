@@ -20,7 +20,12 @@ class PageNavigation extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: GlobalColor.colorPrincipal,
-      appBar: AppBar(title: Text("")),
+      appBar: AppBar(
+        title: const Text(""),
+        //backgroundColor: Colors.blue,
+        shape: const Border(bottom: BorderSide(color: Colors.orange, width:1)),
+        elevation: 4,
+      ),
       drawer: GlobalWidget().drawerPrincipal(),
       body: SafeArea(
         child: PageView(
