@@ -1,0 +1,5 @@
+class GlobalText {
+  static const textRegister = 'Crear una cuenta para iniciar sesión en la aplicación';
+
+  static const urlConnection = 'http://143.198.151.224:8080/';
+}
