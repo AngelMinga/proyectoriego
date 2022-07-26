@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class GlobalWidget {
   Widget textTitle(String text) {
@@ -65,24 +66,28 @@ class GlobalWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           const DrawerHeader(
-            child: Text('Drawer Header'),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.lightBlueAccent,
+            ),
+            child: Image(
+              image: AssetImage('assets/image/riego1.png'),
+              width: 150,
+              /* errorBuilder: (context, _, __) async {
+            return Image.asset('assets/image/logo.png')
+          },*/
             ),
           ),
-          ListTile(
-            title: Text('Item 1'),
-            onTap: () {
-              // Actualiza el estado de la aplicación
-              // ...
-            },
+          InkWell(
+            splashColor: Colors.grey,
+            onTap: () {},
+            child: itemDrawer(texto: "Perfil", icon: Icons.person_outlined, sizetext: 13, sizeIcon: 25),
           ),
-          ListTile(
-            title: Text('Item 2'),
+          InkWell(
+            splashColor: Colors.grey,
             onTap: () {
-              // Actualiza el estado de la aplicación
-              // ...
+              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
             },
+            child: itemDrawer(texto: "Salir", icon: Icons.cancel_outlined, sizetext: 13, sizeIcon: 25),
           ),
         ],
       ),
@@ -102,4 +107,26 @@ class NormalStyle extends TextStyle {
           fontFamily: 'visby',
           fontWeight: bold ? FontWeight.bold : null,
         );
+}
+
+Widget itemDrawer({String? texto, IconData? icon, double? sizetext, double? sizeIcon}) {
+  return Container(
+    margin: EdgeInsets.only(left: 20, top: 10, bottom: 5),
+    child: Row(
+      children: [
+        Icon(
+          icon,
+          size: sizeIcon,
+          color: Colors.grey,
+        ),
+        const SizedBox(
+          width: 30,
+        ),
+        Text(
+          texto!,
+          style: TextStyle(fontSize: sizetext),
+        ),
+      ],
+    ),
+  );
 }
