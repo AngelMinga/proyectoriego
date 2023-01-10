@@ -13,7 +13,7 @@ class PageHureto extends StatelessWidget {
     providerRegister ??= Provider.of<ProviderRegister>(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: GlobalColor.colorPrincipal,
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
@@ -37,7 +37,7 @@ class PageHureto extends StatelessWidget {
           },*/
         ),
         Text(
-          'Riego App',
+          'Demeter',
           style: TextStyle(fontSize: 60, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'logo'),
         ),
       ],

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class ProviderLogin extends ChangeNotifier {
-  TextEditingController ediCell = TextEditingController();
+  TextEditingController ediEmail = TextEditingController();
+  TextEditingController ediPassword = TextEditingController();
 
 }

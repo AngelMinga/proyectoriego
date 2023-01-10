@@ -28,7 +28,8 @@ class PageNavigation extends StatelessWidget {
       ),
       drawer: GlobalWidget().drawerPrincipal(),
       body: SafeArea(
-        child: PageView(
+        child: PageHureto(),
+/*        PageView(
           controller: providerPrincipal!.pageController,
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
@@ -36,9 +37,9 @@ class PageNavigation extends StatelessWidget {
             PageHureto(),
             PageEstadistica(),
           ],
-        ),
+        ),*/
       ),
-      bottomNavigationBar: ConvexAppBar(
+      /*bottomNavigationBar: ConvexAppBar(
         style: TabStyle.reactCircle,
         color: Colors.black,
         activeColor: Colors.amber,
@@ -52,7 +53,7 @@ class PageNavigation extends StatelessWidget {
           print('indexItem $i');
           providerPrincipal!.paginaActual = i;
         },
-      ),
+      ),*/
     );
   }
 }

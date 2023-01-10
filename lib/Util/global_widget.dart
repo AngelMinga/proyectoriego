@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:proyectoriego/Util/global_color.dart';
 
 class GlobalWidget {
   Widget textTitle(String text) {
@@ -67,7 +68,7 @@ class GlobalWidget {
         children: <Widget>[
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.lightBlueAccent,
+              color: GlobalColor.colorPrincipal,
             ),
             child: Image(
               image: AssetImage('assets/image/riego1.png'),

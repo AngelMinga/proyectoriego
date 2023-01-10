@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:proyectoriego/Api/api_rest.dart';
 import 'package:proyectoriego/Controller/provider_login.dart';
+import 'package:proyectoriego/Util/global_preference.dart';
 import 'package:proyectoriego/View/page_register.dart';
+
 import '../Util/global_color.dart';
 
-class PageLogin extends StatelessWidget {
+class PageLogin extends StatefulWidget {
   static String routePage = 'viewLogin';
 
+  @override
+  State<PageLogin> createState() => _PageLoginState();
+}
+
+class _PageLoginState extends State<PageLogin> {
   ProviderLogin? providerLogin;
 
   @override
@@ -21,7 +31,8 @@ class PageLogin extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             containerLogo(context),
-            containerPhone(),
+            containerEmail(),
+            containerPassword(),
             containerButtom(context),
           ],
         ),
@@ -40,24 +51,45 @@ class PageLogin extends StatelessWidget {
           },*/
         ),
         Text(
-          'Riego App',
+          'Demeter',
           style: TextStyle(fontSize: 60, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'logo'),
         ),
       ],
     );
   }
 
-  Widget containerPhone() {
+  Widget containerEmail() {
     return Container(
       margin: const EdgeInsets.all(20),
       child: TextField(
-          controller: providerLogin!.ediCell,
-          keyboardType: TextInputType.number,
+          controller: providerLogin!.ediEmail,
+          keyboardType: TextInputType.emailAddress,
           style: const TextStyle(),
           decoration: const InputDecoration(
-            hintText: 'Celular',
+            hintText: 'Correo',
             contentPadding: EdgeInsets.all(10),
-            prefixIcon: Icon(Icons.phone_android),
+            prefixIcon: Icon(Icons.email_outlined),
+            fillColor: Colors.white,
+            filled: true,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+            ),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+          )),
+    );
+  }
+
+  Widget containerPassword() {
+    return Container(
+      margin: const EdgeInsets.all(20),
+      child: TextField(
+          controller: providerLogin!.ediPassword,
+          keyboardType: TextInputType.visiblePassword,
+          style: const TextStyle(),
+          decoration: const InputDecoration(
+            hintText: 'Clave',
+            contentPadding: EdgeInsets.all(10),
+            prefixIcon: Icon(Icons.password),
             fillColor: Colors.white,
             filled: true,
             enabledBorder: OutlineInputBorder(
@@ -79,16 +111,12 @@ class PageLogin extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
               onPressed: () {
-/*                ApiRest().loginUser(
-                    context, providerLogin!.ediCell.text.trim(), (t, data) {
+                ApiRest().login(
+                    context,  providerLogin!.ediEmail.text.trim(),providerLogin!.ediPassword.text.trim(), (t, data) {
                       if(t == 1){
-                        providerLogin!.ediCell.clear();
-                        GlobalWidget().messageAlert(context, data);
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            PageChat.routePage,
-                            (Route<dynamic> route) => route.isFirst);
+
                       }
-                });*/
+                });
               },
               child: const Text(
                 'INICIAR SESIÓN',
@@ -99,20 +127,26 @@ class PageLogin extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          SizedBox(
+/*          SizedBox(
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
               onPressed: () {
                 Navigator.of(context).pushNamed(PageRegister.routePage);
+*//*                ApiRest().getUser(
+                    context, (t, data) {
+                  if(t == 1){
+
+                  }
+                });*//*
               },
               child: const Text(
                 'REGISTRATE',
                 style: TextStyle(color: GlobalColor.colorPrincipal, fontSize: 20),
               ),
             ),
-          )
+          )*/
         ],
       ),
     );

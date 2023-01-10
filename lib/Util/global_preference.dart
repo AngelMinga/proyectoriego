@@ -16,3 +16,8 @@ class GlobalPreference {
     return prefs.getBool(stateLogin) ?? false;
   }
 }
+enum SupportState {
+  unknown,
+  supported,
+  unsupported,
+}
