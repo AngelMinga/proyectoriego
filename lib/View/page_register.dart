@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:proyectoriego/Api/api_rest.dart';
 import 'package:proyectoriego/Controller/provider_register.dart';
 import 'package:proyectoriego/Util/global_color.dart';
 import 'package:proyectoriego/Util/global_text.dart';
@@ -34,7 +35,7 @@ class PageRegister extends StatelessWidget {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
-          children: [containerInfo(), containerPhone(), containerUser(), containerButtom(context)],
+          children: [containerInfo(), containerName(),containerLastName(),containerPhone(),containerDirecction(),containerEmail(),containerPassword(), containerButtom(context)],
         ),
       )),
     );
@@ -44,12 +45,49 @@ class PageRegister extends StatelessWidget {
     return Container(margin: const EdgeInsets.only(left: 20, right: 20, top: 20), child: GlobalWidget().textTitle(GlobalText.textRegister));
   }
 
+  Widget containerName() {
+    return Container(
+      margin: const EdgeInsets.all(20),
+      child: TextField(
+          controller: providerRegister!.editName,
+          keyboardType: TextInputType.text,
+          style: const TextStyle(),
+          decoration: const InputDecoration(
+            hintText: 'Nombre',
+            contentPadding: EdgeInsets.all(10),
+            prefixIcon: Icon(Icons.person_outline),
+            fillColor: Colors.white,
+            filled: true,
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: GlobalColor.colorEdge, width: .3)),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: GlobalColor.colorEdge, width: .3)),
+          )),
+    );
+  }
+  Widget containerLastName() {
+    return Container(
+      margin: const EdgeInsets.all(20),
+      child: TextField(
+          controller: providerRegister!.editLastName,
+          keyboardType: TextInputType.text,
+          style: const TextStyle(),
+          decoration: const InputDecoration(
+            hintText: 'Apellido',
+            contentPadding: EdgeInsets.all(10),
+            prefixIcon: Icon(Icons.person_outline),
+            fillColor: Colors.white,
+            filled: true,
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: GlobalColor.colorEdge, width: .3)),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: GlobalColor.colorEdge, width: .3)),
+          )),
+    );
+  }
+
   Widget containerPhone() {
     return Container(
       margin: const EdgeInsets.all(20),
       child: TextField(
           controller: providerRegister!.editCell,
-          keyboardType: TextInputType.number,
+          keyboardType: TextInputType.phone,
           style: const TextStyle(),
           decoration: const InputDecoration(
             hintText: 'Celular',
@@ -63,17 +101,54 @@ class PageRegister extends StatelessWidget {
     );
   }
 
-  Widget containerUser() {
+  Widget containerDirecction() {
     return Container(
       margin: const EdgeInsets.all(20),
       child: TextField(
-          controller: providerRegister!.editName,
-          keyboardType: TextInputType.number,
+          controller: providerRegister!.editDirecction,
+          keyboardType: TextInputType.text,
           style: const TextStyle(),
           decoration: const InputDecoration(
-            hintText: 'Usuario',
+            hintText: 'Dirección',
             contentPadding: EdgeInsets.all(10),
-            prefixIcon: Icon(Icons.perm_identity),
+            prefixIcon: Icon(Icons.directions),
+            fillColor: Colors.white,
+            filled: true,
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: GlobalColor.colorEdge, width: .3)),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: GlobalColor.colorEdge, width: .3)),
+          )),
+    );
+  }
+
+  Widget containerEmail() {
+    return Container(
+      margin: const EdgeInsets.all(20),
+      child: TextField(
+          controller: providerRegister!.editEmail,
+          keyboardType: TextInputType.emailAddress,
+          style: const TextStyle(),
+          decoration: const InputDecoration(
+            hintText: 'Correo',
+            contentPadding: EdgeInsets.all(10),
+            prefixIcon: Icon(Icons.email_outlined),
+            fillColor: Colors.white,
+            filled: true,
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: GlobalColor.colorEdge, width: .3)),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: GlobalColor.colorEdge, width: .3)),
+          )),
+    );
+  }
+  Widget containerPassword() {
+    return Container(
+      margin: const EdgeInsets.all(20),
+      child: TextField(
+          controller: providerRegister!.editPassword,
+          keyboardType: TextInputType.visiblePassword,
+          style: const TextStyle(),
+          decoration: const InputDecoration(
+            hintText: 'Clave',
+            contentPadding: EdgeInsets.all(10),
+            prefixIcon: Icon(Icons.password),
             fillColor: Colors.white,
             filled: true,
             enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)), borderSide: BorderSide(color: GlobalColor.colorEdge, width: .3)),
@@ -93,17 +168,21 @@ class PageRegister extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: GlobalColor.colorPrincipal, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
               onPressed: () {
-/*                ApiRest().registerUser(
+                ApiRest().register(
                     context,
                     providerRegister!.editName.text.trim(),
-                    providerRegister!.editCell.text.trim(), (t, data) {
+                    providerRegister!.editLastName.text.trim(),
+                    providerRegister!.editCell.text.trim(),
+                    providerRegister!.editDirecction.text.trim(),
+                    providerRegister!.editEmail.text.trim(),
+                    providerRegister!.editPassword.text.trim(), (t, data) {
                   if (t == 1) {
                     providerRegister!.editCell.clear();
                     providerRegister!.editName.clear();
                     GlobalWidget().messageAlert(context, data);
                     Navigator.of(context).pop();
                   }
-                });*/
+                });
               },
               child: const Text(
                 'REGISTRAR',
