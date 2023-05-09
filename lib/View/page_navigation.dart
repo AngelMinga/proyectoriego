@@ -1,18 +1,25 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyectoriego/Controller/provider_principal.dart';
-import 'package:proyectoriego/View/page_cuidado.dart';
-import 'package:proyectoriego/View/page_estadistica.dart';
 import 'package:proyectoriego/View/page_huerto.dart';
 
 import '../Util/global_color.dart';
 import '../Util/global_widget.dart';
 
-class PageNavigation extends StatelessWidget {
+class PageNavigation extends StatefulWidget {
   static String routePage = 'viewHome';
 
+  @override
+  State<PageNavigation> createState() => _PageNavigationState();
+}
+
+class _PageNavigationState extends State<PageNavigation> {
   ProviderPrincipal? providerPrincipal;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +33,7 @@ class PageNavigation extends StatelessWidget {
         shape: const Border(bottom: BorderSide(color: Colors.orange, width:1)),
         elevation: 4,
       ),
-      drawer: GlobalWidget().drawerPrincipal(),
+      drawer: GlobalWidget().drawerPrincipal(context),
       body: SafeArea(
         child: PageHureto(),
 /*        PageView(

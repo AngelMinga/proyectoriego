@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           //primarySwatch: Colors.blue,
         ),
-        home: PageNavigation(),
+        home: const PageSplash(),
         routes: <String, WidgetBuilder>{
           PageLogin.routePage: (_) => PageLogin(),
           PageRegister.routePage: (_) => PageRegister(),

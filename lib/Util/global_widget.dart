@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:proyectoriego/Util/global_color.dart';
 
+import '../View/page_login.dart';
+import 'global_preference.dart';
+
 class GlobalWidget {
   Widget textTitle(String text) {
     return Text(
@@ -57,7 +60,7 @@ class GlobalWidget {
     );
   }
 
-  Widget drawerPrincipal() {
+  Widget drawerPrincipal(BuildContext context) {
     return Drawer(
       // Agrega un ListView al drawer. Esto asegura que el usuario pueda desplazarse
       // a través de las opciones en el Drawer si no hay suficiente espacio vertical
@@ -78,12 +81,20 @@ class GlobalWidget {
           },*/
             ),
           ),
-          InkWell(
+     /*     InkWell(
             splashColor: Colors.grey,
             onTap: () {},
             child: itemDrawer(texto: "Perfil", icon: Icons.person_outlined, sizetext: 13, sizeIcon: 25),
-          ),
+          ),*/
           InkWell(
+            splashColor: Colors.grey,
+            onTap: () {
+              GlobalPreference.deleteStateLogin().then((value) {
+               Navigator.of(context).pushNamedAndRemoveUntil(PageLogin.routePage, (Route<dynamic> route) => route.isFirst);
+              });
+            },
+            child: itemDrawer(texto: "Cerrar sesiòn", icon: Icons.exit_to_app, sizetext: 13, sizeIcon: 25),
+          ),InkWell(
             splashColor: Colors.grey,
             onTap: () {
               SystemChannels.platform.invokeMethod('SystemNavigator.pop');

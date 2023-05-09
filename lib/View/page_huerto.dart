@@ -4,6 +4,8 @@ import 'package:proyectoriego/Api/api_rest.dart';
 import 'package:proyectoriego/Controller/provider_register.dart';
 import 'package:proyectoriego/Util/global_color.dart';
 
+import '../Util/mqttResponse.dart';
+
 class PageHureto extends StatelessWidget {
   static const routePage = 'viewCuidado';
   ProviderRegister? providerRegister;
@@ -55,9 +57,11 @@ class PageHureto extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
               onPressed: () {
-                ApiRest().encenderRele(context, (t, data) {
+                ///MqttHandler().publishMessage('0');
+                MqttHandler().initMqtt('1');
+                /*ApiRest().encenderRele(context, (t, data) {
 
-                });
+                });*/
               },
               child: const Text(
                 'ENCENDER',
@@ -74,9 +78,10 @@ class PageHureto extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
               onPressed: () {
-                ApiRest().encenderRele(context, (t, data) {
+                MqttHandler().initMqtt('0');
+               /* ApiRest().encenderRele(context, (t, data) {
 
-                });
+                });*/
               },
               child: const Text(
                 'APAGAR',

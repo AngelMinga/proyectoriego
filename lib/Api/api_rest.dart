@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:proyectoriego/Api/base_api.dart';
+import 'package:proyectoriego/Models/response_login.dart';
 import 'package:proyectoriego/Util/global_text.dart';
 import 'package:proyectoriego/Util/global_widget.dart';
 
@@ -9,27 +10,33 @@ class ApiRest {
   BaseApi baseApi = BaseApi();
 
   Future encenderRele(BuildContext? context, VoidCallback? Function(int? t, dynamic data) callback) async {
-    const url = '${GlobalText.urlServerIot}on';
+    const url = '${GlobalText.urlConnection}${GlobalText.urlRiego}';
+    var data={
+      'message':1
+    };
     try {
-      final response = await dio.get(url);
+      final response = await dio.post(url,data: data);
       print('respuesta registro >>>> $response');
       if (response.data != null) {
-        GlobalWidget().messageAlert(context!,"Prendido");
+        GlobalWidget().messageAlert(context!,"Encendido");
       }
     } catch (e) {
-      print('ERROR REGISTRO');
+      print('ERROR REGISTRO $e');
     }
   }
   Future apagarRele(BuildContext? context, VoidCallback? Function(int? t, dynamic data) callback) async {
-    const url = '${GlobalText.urlServerIot}off';
+    const url = '${GlobalText.urlConnection}${GlobalText.urlRiego}';
+    var data={
+      'message':0
+    };
     try {
-      final response = await dio.get(url);
+      final response = await dio.post(url,data: data);
       print('respuesta registro >>>> $response');
       if (response.data != null) {
         GlobalWidget().messageAlert(context!,"Apagado");
       }
     } catch (e) {
-      print('ERROR REGISTRO');
+      print('ERROR REGISTRO  $e');
     }
   }
 
@@ -41,24 +48,28 @@ class ApiRest {
       "password": password,
     };
 
-/*    try {
+    if(email!='admin@prueba.com'){
+      GlobalWidget().messageAlert(context!,"Usuario no registrado");
+      return;
+    }
+    if(password!='admin'){
+      GlobalWidget().messageAlert(context!,"Usuario/contraseña incorrecto");
+      return;
+    }
+    callback(1,'Success');
+    /*try {
+      var res = await baseApi.baseApiAntigua(url, body: parameters).timeout(Duration(seconds: 30), onTimeout: () {
+        return {"en": -1, "m": "Ocurrió un problema, intente nuevamente más tarde."};
+      });
+      print('>>>>>>>> Res $res');
       final response = await dio.post(url,data: parameters);
       print('respuesta login >>>> $response');
-      if (response.data != null) {
-
-      }
+      if (response.data == null) return callback(-1, 'Ocurrió un problema, intente nuevamente más tarde.');
+      callback(1, ResponseLogin.fromMap(response.data));
     } catch (e) {
       print('ERROR LOGIN $e' );
+      callback(-1, 'Ocurrió un problema, intente nuevamente más tarde.');
     }*/
-
-    print("Login >>>>>1 " + url);
-   // Map<String, String> headers = {'version': ''};
-    var res = await baseApi.baseApiAntigua(url, body: parameters).timeout(Duration(seconds: 30), onTimeout: () {
-      return {"en": -1, "m": "Ocurrió un problema, intente nuevamente más tarde."};
-    });
-    print("Login >>>>>2 " + res.toString());
-   // LugaresCercanosResponse response = LugaresCercanosResponse.fromJson(res);
-    //return response ;
   }
 
   Future getUser(BuildContext? context, VoidCallback? Function(int? t, dynamic data) callback) async {

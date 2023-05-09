@@ -1,107 +1,113 @@
 import 'dart:convert';
 
-import 'package:proyectoriego/Models/response_usuario.dart';
-
 class ResponseLogin {
+  String? message;
+  User? user;
+  bool? status;
+
   ResponseLogin({
     this.message,
     this.user,
     this.status,
   });
 
-  String? message;
-  User? user;
-  bool? status;
-
   factory ResponseLogin.fromJson(String str) => ResponseLogin.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
   factory ResponseLogin.fromMap(Map<String, dynamic> json) => ResponseLogin(
-    message: json["message"] == null ? null : json["message"],
+    message: json["message"],
     user: json["user"] == null ? null : User.fromMap(json["user"]),
-    status: json["status"] == null ? null : json["status"],
+    status: json["status"],
   );
 
   Map<String, dynamic> toMap() => {
-    "message": message == null ? null : message,
-    "user": user == null ? null : user!.toMap(),
-    "status": status == null ? null : status,
+    "message": message,
+    "user": user?.toMap(),
+    "status": status,
   };
 }
 
 class User {
-  User({
-    this.message,
-    this.data,
-  });
+  String? id;
+  String? email;
+  bool? status;
+  Person? person;
+  Rol? rol;
 
-  String? message;
-  Data? data;
+  User({
+    this.id,
+    this.email,
+    this.status,
+    this.person,
+    this.rol,
+  });
 
   factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
   factory User.fromMap(Map<String, dynamic> json) => User(
-    message: json["message"] == null ? null : json["message"],
-    data: json["data"] == null ? null : Data.fromMap(json["data"]),
+    id: json["id"],
+    email: json["email"],
+    status: json["Status"],
+    person: json["person"] == null ? null : Person.fromMap(json["person"]),
+    rol: json["rol"] == null ? null : Rol.fromMap(json["rol"]),
   );
 
   Map<String, dynamic> toMap() => {
-    "message": message == null ? null : message,
-    "data": data == null ? null : data!.toMap(),
+    "id": id,
+    "email": email,
+    "Status": status,
+    "person": person?.toMap(),
+    "rol": rol?.toMap(),
   };
 }
 
-class Data {
-  Data({
-    this.id,
-    this.email,
-    this.password,
-    this.status,
-    this.person,
-    this.rol,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
+class Person {
+  String? nameU;
+  String? lastName;
+
+  Person({
+    this.nameU,
+    this.lastName,
   });
 
-  String? id;
-  String? email;
-  String? password;
-  bool? status;
-  Person? person;
-  Rol? rol;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  int? v;
-
-  factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+  factory Person.fromJson(String str) => Person.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Data.fromMap(Map<String, dynamic> json) => Data(
-    id: json["_id"] == null ? null : json["_id"],
-    email: json["email"] == null ? null : json["email"],
-    password: json["password"] == null ? null : json["password"],
-    status: json["Status"] == null ? null : json["Status"],
-    person: json["person"] == null ? null : Person.fromMap(json["person"]),
-    rol: json["rol"] == null ? null : Rol.fromMap(json["rol"]),
-    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
-    v: json["__v"] == null ? null : json["__v"],
+  factory Person.fromMap(Map<String, dynamic> json) => Person(
+    nameU: json["nameU"],
+    lastName: json["lastName"],
   );
 
   Map<String, dynamic> toMap() => {
-    "_id": id == null ? null : id,
-    "email": email == null ? null : email,
-    "password": password == null ? null : password,
-    "Status": status == null ? null : status,
-    "person": person == null ? null : person!.toMap(),
-    "rol": rol == null ? null : rol!.toMap(),
-    "createdAt": createdAt == null ? null : createdAt!.toIso8601String(),
-    "updatedAt": updatedAt == null ? null : updatedAt!.toIso8601String(),
-    "__v": v == null ? null : v,
+    "nameU": nameU,
+    "lastName": lastName,
+  };
+}
+
+class Rol {
+  String? nameRol;
+  bool? status;
+
+  Rol({
+    this.nameRol,
+    this.status,
+  });
+
+  factory Rol.fromJson(String str) => Rol.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Rol.fromMap(Map<String, dynamic> json) => Rol(
+    nameRol: json["nameRol"],
+    status: json["status"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "nameRol": nameRol,
+    "status": status,
   };
 }

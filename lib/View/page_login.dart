@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:proyectoriego/Api/api_rest.dart';
 import 'package:proyectoriego/Controller/provider_login.dart';
 import 'package:proyectoriego/Util/global_preference.dart';
-import 'package:proyectoriego/View/page_register.dart';
+import 'package:proyectoriego/View/page_navigation.dart';
 
 import '../Util/global_color.dart';
+import '../Util/global_widget.dart';
+
 
 class PageLogin extends StatefulWidget {
   static String routePage = 'viewLogin';
-
   @override
   State<PageLogin> createState() => _PageLoginState();
 }
 
 class _PageLoginState extends State<PageLogin> {
   ProviderLogin? providerLogin;
+  final _formKey = GlobalKey<FormState>();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +28,17 @@ class _PageLoginState extends State<PageLogin> {
       backgroundColor: GlobalColor.colorPrincipal,
       body: SafeArea(
           child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            containerLogo(context),
-            containerEmail(),
-            containerPassword(),
-            containerButtom(context),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              containerLogo(context),
+              containerEmail(),
+              containerPassword(),
+              containerButtom(context),
+            ],
+          ),
         ),
       )),
     );
@@ -61,10 +65,11 @@ class _PageLoginState extends State<PageLogin> {
   Widget containerEmail() {
     return Container(
       margin: const EdgeInsets.all(20),
-      child: TextField(
+      child: TextFormField(
           controller: providerLogin!.ediEmail,
           keyboardType: TextInputType.emailAddress,
           style: const TextStyle(),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: const InputDecoration(
             hintText: 'Correo',
             contentPadding: EdgeInsets.all(10),
@@ -75,17 +80,26 @@ class _PageLoginState extends State<PageLogin> {
               borderRadius: BorderRadius.all(Radius.circular(50)),
             ),
             focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
-          )),
+          ),
+          validator: (val) {
+          String text = val!.trim();
+          if (text.isEmpty) {
+            return 'Ingrese un usuario';
+          }
+          return null;
+        },
+      ),
     );
   }
 
   Widget containerPassword() {
     return Container(
       margin: const EdgeInsets.all(20),
-      child: TextField(
+      child: TextFormField(
           controller: providerLogin!.ediPassword,
           keyboardType: TextInputType.visiblePassword,
           style: const TextStyle(),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: const InputDecoration(
             hintText: 'Clave',
             contentPadding: EdgeInsets.all(10),
@@ -96,7 +110,15 @@ class _PageLoginState extends State<PageLogin> {
               borderRadius: BorderRadius.all(Radius.circular(50)),
             ),
             focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
-          )),
+          ),
+          validator: (val) {
+          String text = val!.trim();
+          if (text.isEmpty) {
+            return 'Ingrese una contraseña';
+          }
+          return null;
+        },
+      ),
     );
   }
 
@@ -111,12 +133,18 @@ class _PageLoginState extends State<PageLogin> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
               onPressed: () {
+                if(_formKey.currentState!.validate()){
                 ApiRest().login(
                     context,  providerLogin!.ediEmail.text.trim(),providerLogin!.ediPassword.text.trim(), (t, data) {
                       if(t == 1){
-
+                        GlobalPreference().setStateLogin(true);
+                       // GlobalPreference().saveUser(data);
+                        Navigator.of(context).pushNamedAndRemoveUntil(PageNavigation.routePage, (Route<dynamic> route) => false);
                       }
                 });
+                }else{
+                  GlobalWidget().messageAlert(context,"Revise la información");
+                }
               },
               child: const Text(
                 'INICIAR SESIÓN',

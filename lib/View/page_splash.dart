@@ -13,7 +13,7 @@ class PageSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 2000), () {
       GlobalPreference.getStateLogin().then((value) {
-        value ? Navigator.of(context).pushNamedAndRemoveUntil(PageLogin.routePage, (Route<dynamic> route) => route.isFirst) : Navigator.of(context).pushNamedAndRemoveUntil(PageNavigation.routePage, (Route<dynamic> route) => route.isFirst);
+        !value ? Navigator.of(context).pushNamedAndRemoveUntil(PageLogin.routePage, (Route<dynamic> route) => route.isFirst) : Navigator.of(context).pushNamedAndRemoveUntil(PageNavigation.routePage, (Route<dynamic> route) => route.isFirst);
       });
     });
 
@@ -35,7 +35,7 @@ class PageSplash extends StatelessWidget {
         ),
         Center(
             child: Text(
-          'Riego App',
+          'Demeter',
           style: TextStyle(fontSize: 60, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'logo'),
         )),
       ],
