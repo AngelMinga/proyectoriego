@@ -5,6 +5,7 @@ import 'package:proyectoriego/View/page_huerto.dart';
 
 import '../Util/global_color.dart';
 import '../Util/global_widget.dart';
+import '../Util/mqttResponse.dart';
 
 class PageNavigation extends StatefulWidget {
   static String routePage = 'viewHome';
@@ -19,6 +20,7 @@ class _PageNavigationState extends State<PageNavigation> {
   @override
   void initState() {
     super.initState();
+    MqttHandler().initMqtt('0');
   }
 
   @override

@@ -5,6 +5,22 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 class MqttHandler with ChangeNotifier {
   final ValueNotifier<String> data = ValueNotifier<String>("");
   MqttServerClient? client;
+  bool _statusButtonEncender=false;
+  bool _statusButtonCancel=false;
+
+
+  bool get statusButtonEncender => _statusButtonEncender;
+
+  set statusButtonEncender(bool value) {
+    _statusButtonEncender = value;
+    notifyListeners();
+  }
+  bool get statusButtonCancel => _statusButtonCancel;
+
+  set statusButtonCancel(bool value) {
+    _statusButtonCancel = value;
+    notifyListeners();
+  }
 
   Future<Object> connect() async {
     client = MqttServerClient.withPort(
@@ -50,7 +66,7 @@ class MqttHandler with ChangeNotifier {
     }
 
     print('MQTT_LOGS::Subscribing to the test/lol topic');
-    const topic = 'suelo1';
+    const topic = 'estadoRiego';
     client!.subscribe(topic, MqttQos.atMostOnce);
 
     client!.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
@@ -62,6 +78,14 @@ class MqttHandler with ChangeNotifier {
       notifyListeners();
       print('MQTT_LOGS:: New data arrived: topic is <${c[0].topic}>, payload is $pt');
       print('');
+      if(pt==1){
+        statusButtonEncender=false;
+        statusButtonCancel=true;
+      }else{
+        statusButtonEncender=true;
+        statusButtonCancel=false;
+      }
+
     });
 
     return client!;
