@@ -6,7 +6,7 @@ import 'package:proyectoriego/Util/global_color.dart';
 
 import '../Util/mqttResponse.dart';
 
-class PageHureto extends StatelessWidget {
+class PageHuerto extends StatelessWidget {
   static const routePage = 'viewCuidado';
   ProviderRegister? providerRegister;
 
@@ -15,32 +15,37 @@ class PageHureto extends StatelessWidget {
     providerRegister ??= Provider.of<ProviderRegister>(context);
 
     return Scaffold(
-      backgroundColor: GlobalColor.colorPrincipal,
+      backgroundColor: GlobalColor.colorWithe,
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            containerLogo(context), containerButtom(context)
-          ],
-        ),
-      )),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(flex: 0, child: containerLogo(context)),
+              Expanded(flex: 1, child: containerButtom(context)),
+              const Expanded(flex: 0,child: Text('Terminos y condiciones'))
+            ],
+          )),
     );
   }
 
   Widget containerLogo(BuildContext context) {
-    return Column(
-      children: const [
+    return const Column(
+      children: [
+        SizedBox(height: 20,),
         Image(
-          image: AssetImage('assets/image/riego1.png'),
+          image: AssetImage('assets/image/logounl.jpeg'),
           width: 150,
           /* errorBuilder: (context, _, __) async {
             return Image.asset('assets/image/logo.png')
           },*/
         ),
         Text(
-          'Demeter',
-          style: TextStyle(fontSize: 60, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'logo'),
+          'Riego UNL',
+          style: TextStyle(
+              fontSize: 60,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'logo'),
         ),
       ],
     );
@@ -55,7 +60,10 @@ class PageHureto extends StatelessWidget {
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15))),
               onPressed: () {
                 ///MqttHandler().publishMessage('0');
                 MqttHandler().initMqtt('1');
@@ -65,7 +73,8 @@ class PageHureto extends StatelessWidget {
               },
               child: const Text(
                 'ENCENDER',
-                style: TextStyle(color: GlobalColor.colorPrincipal, fontSize: 20),
+                style:
+                    TextStyle(color: GlobalColor.colorPrincipal, fontSize: 20),
               ),
             ),
           ),
@@ -76,16 +85,20 @@ class PageHureto extends StatelessWidget {
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15))),
               onPressed: () {
                 MqttHandler().initMqtt('0');
-               /* ApiRest().encenderRele(context, (t, data) {
+                /* ApiRest().encenderRele(context, (t, data) {
 
                 });*/
               },
               child: const Text(
                 'APAGAR',
-                style: TextStyle(color: GlobalColor.colorPrincipal, fontSize: 20),
+                style:
+                    TextStyle(color: GlobalColor.colorPrincipal, fontSize: 20),
               ),
             ),
           )

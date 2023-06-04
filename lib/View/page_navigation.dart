@@ -16,7 +16,7 @@ class PageNavigation extends StatefulWidget {
 
 class _PageNavigationState extends State<PageNavigation> {
   ProviderPrincipal? providerPrincipal;
-
+  GlobalKey<ScaffoldState>? scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -29,15 +29,22 @@ class _PageNavigationState extends State<PageNavigation> {
 
     return Scaffold(
       backgroundColor: GlobalColor.colorPrincipal,
+      key: scaffoldKey,
       appBar: AppBar(
-        title: const Text(""),
-        //backgroundColor: Colors.blue,
+        title: const Text("Riego UNL",style: TextStyle(color: Colors.white),),
+        backgroundColor: GlobalColor.colorPrincipal,
         shape: const Border(bottom: BorderSide(color: Colors.orange, width:1)),
         elevation: 4,
+        leading: IconButton(
+          icon: const Icon(Icons.menu,color: Colors.white,),
+          onPressed: (){
+            scaffoldKey!.currentState!.openDrawer();
+          },
+        ),
       ),
       drawer: GlobalWidget().drawerPrincipal(context),
       body: SafeArea(
-        child: PageHureto(),
+        child: PageHuerto(),
 /*        PageView(
           controller: providerPrincipal!.pageController,
           physics: NeverScrollableScrollPhysics(),

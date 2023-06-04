@@ -46,16 +46,43 @@ class _PageLoginState extends State<PageLogin> {
 
   Widget containerLogo(BuildContext context) {
     return Column(
-      children: const [
-        Image(
-          image: AssetImage('assets/image/riego1.png'),
-          width: 150,
-         /* errorBuilder: (context, _, __) async {
-            return Image.asset('assets/image/logo.png')
-          },*/
-        ),
+      children: [
+        CircleAvatar(
+            radius: 50,
+            backgroundColor: GlobalColor.colorPrincipal,
+            child: Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(60.0),
+              ),
+              child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(50)),
+                  child: Image(
+                    image: AssetImage('assets/image/logounl.jpeg'),
+                    width: 300,
+                    fit: BoxFit.cover,
+                    /* errorBuilder: (context, _, __) async {
+                return Image.asset('assets/image/logo.png')
+              },*/
+                  ),
+              ),
+            )),
+       /* CircleAvatar(
+          radius: 30,
+          child: Container(
+
+            child: Image(
+              image: AssetImage('assets/image/logounl.jpeg'),
+              width: 200,
+             *//* errorBuilder: (context, _, __) async {
+                return Image.asset('assets/image/logo.png')
+              },*//*
+            ),
+          ),
+        ),*/
         Text(
-          'Demeter',
+          'Riego UNL',
           style: TextStyle(fontSize: 60, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'logo'),
         ),
       ],

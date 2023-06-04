@@ -28,7 +28,11 @@ class MyApp extends StatelessWidget {
         title: 'Riego App',
         theme: ThemeData(
           useMaterial3: true,
-          //primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
+          bottomAppBarColor: Colors.white,
+          bottomAppBarTheme: const BottomAppBarTheme(
+            color: Colors.white
+          )
         ),
         home: const PageSplash(),
         routes: <String, WidgetBuilder>{
