@@ -24,7 +24,7 @@ class MqttHandler with ChangeNotifier {
 
   Future<Object> connect() async {
     client = MqttServerClient.withPort(
-        '159.223.125.186', 'lens_ALGxRhLLfeAVFZU2iMgNfBTyNUS232332323', 1883);
+        '165.22.6.109', 'lens_ALGxRhLLfeAVFZU2iMgNfBTyNUS232332323', 1883);
     client!.logging(on: true);
     client!.onConnected = onConnected;
     client!.onDisconnected = onDisconnected;
@@ -85,7 +85,7 @@ class MqttHandler with ChangeNotifier {
         statusButtonEncender=true;
         statusButtonCancel=false;
       }
-
+      notifyListeners();
     });
 
     return client!;

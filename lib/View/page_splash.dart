@@ -26,16 +26,16 @@ class PageSplash extends StatelessWidget {
   }
 
   Widget containerLogo(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
+      children: [
         Image(
-          image: AssetImage('assets/image/riego1.png'),
+          image: AssetImage('assets/image/logounl.jpeg'),
           width: 150,
         ),
         Center(
             child: Text(
-          'Demeter',
+          'Riego Unl',
           style: TextStyle(fontSize: 60, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'logo'),
         )),
       ],

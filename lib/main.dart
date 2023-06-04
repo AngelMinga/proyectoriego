@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:proyectoriego/Controller/provider_login.dart';
 import 'package:proyectoriego/Controller/provider_principal.dart';
 import 'package:proyectoriego/Controller/provider_register.dart';
+import 'package:proyectoriego/Util/mqttResponse.dart';
 import 'package:proyectoriego/View/page_navigation.dart';
 import 'package:proyectoriego/View/page_login.dart';
 import 'package:proyectoriego/View/page_register.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProviderRegister()),
         ChangeNotifierProvider(create: (_) => ProviderLogin()),
         ChangeNotifierProvider(create: (_) => ProviderPrincipal()),
+        ChangeNotifierProvider(create: (_) => MqttHandler()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

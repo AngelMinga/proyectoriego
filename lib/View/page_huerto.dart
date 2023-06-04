@@ -9,10 +9,12 @@ import '../Util/mqttResponse.dart';
 class PageHuerto extends StatelessWidget {
   static const routePage = 'viewCuidado';
   ProviderRegister? providerRegister;
+  MqttHandler? mqttHandler;
 
   @override
   Widget build(BuildContext context) {
     providerRegister ??= Provider.of<ProviderRegister>(context);
+    mqttHandler ??= Provider.of<MqttHandler>(context);
 
     return Scaffold(
       backgroundColor: GlobalColor.colorWithe,
@@ -56,12 +58,13 @@ class PageHuerto extends StatelessWidget {
       margin: const EdgeInsets.all(20),
       child: Column(
         children: [
+          //if(mqttHandler!.statusButtonEncender)
           SizedBox(
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
+                  backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15))),
               onPressed: () {
@@ -81,12 +84,13 @@ class PageHuerto extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
+          //if(mqttHandler!.statusButtonCancel)
           SizedBox(
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
+                  backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15))),
               onPressed: () {
