@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyectoriego/Util/global_color.dart';
 import 'package:proyectoriego/Util/global_preference.dart';
+import 'package:proyectoriego/View/page_huerto.dart';
 import 'package:proyectoriego/View/page_navigation.dart';
 import 'package:proyectoriego/View/page_login.dart';
 
@@ -13,7 +14,7 @@ class PageSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 2000), () {
       GlobalPreference.getStateLogin().then((value) {
-        !value ? Navigator.of(context).pushNamedAndRemoveUntil(PageLogin.routePage, (Route<dynamic> route) => route.isFirst) : Navigator.of(context).pushNamedAndRemoveUntil(PageNavigation.routePage, (Route<dynamic> route) => route.isFirst);
+        !value ? Navigator.of(context).pushNamedAndRemoveUntil(PageLogin.routePage, (Route<dynamic> route) => route.isFirst) : Navigator.of(context).pushNamedAndRemoveUntil(PageHuerto.routePage, (Route<dynamic> route) => route.isFirst);
       });
     });
 

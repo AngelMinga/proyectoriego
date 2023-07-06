@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:proyectoriego/Util/global_color.dart';
+import 'package:proyectoriego/View/page_estadistica.dart';
 
 import '../View/page_login.dart';
 import 'global_preference.dart';
@@ -94,6 +95,13 @@ class GlobalWidget {
               });
             },
             child: itemDrawer(texto: "Cerrar sesiòn", icon: Icons.exit_to_app, sizetext: 13, sizeIcon: 25),
+          ), InkWell(
+            splashColor: Colors.grey,
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.of(context).pushNamed(PageEstadistica.routePage);
+            },
+            child: itemDrawer(texto: "Topic", icon: Icons.list, sizetext: 13, sizeIcon: 25),
           ),InkWell(
             splashColor: Colors.grey,
             onTap: () {

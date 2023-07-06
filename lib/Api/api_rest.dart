@@ -48,11 +48,11 @@ class ApiRest {
       "password": password,
     };
 
-    if(email!='admin@prueba.com'){
+    if(email!='admin@admin.com'){
       GlobalWidget().messageAlert(context!,"Usuario no registrado");
       return;
     }
-    if(password!='admin'){
+    if(password!='12345'){
       GlobalWidget().messageAlert(context!,"Usuario/contraseña incorrecto");
       return;
     }

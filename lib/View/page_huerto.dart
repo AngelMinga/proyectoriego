@@ -4,20 +4,52 @@ import 'package:proyectoriego/Api/api_rest.dart';
 import 'package:proyectoriego/Controller/provider_register.dart';
 import 'package:proyectoriego/Util/global_color.dart';
 
+import '../Util/global_widget.dart';
 import '../Util/mqttResponse.dart';
 
-class PageHuerto extends StatelessWidget {
+class PageHuerto extends StatefulWidget {
   static const routePage = 'viewCuidado';
+
+  @override
+  State<PageHuerto> createState() => _PageHuertoState();
+}
+
+class _PageHuertoState extends State<PageHuerto> {
   ProviderRegister? providerRegister;
+
   MqttHandler? mqttHandler;
+  GlobalKey<ScaffoldState>? scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    //mqttHandler ??= Provider.of<MqttHandler>(context,listen: false);
+    MqttHandler().initMqtt('0');
+  }
 
   @override
   Widget build(BuildContext context) {
     providerRegister ??= Provider.of<ProviderRegister>(context);
     mqttHandler ??= Provider.of<MqttHandler>(context);
 
+
     return Scaffold(
       backgroundColor: GlobalColor.colorWithe,
+      key: scaffoldKey,
+      appBar: AppBar(
+        title: const Text("Riego UNL",style: TextStyle(color: Colors.white),),
+        backgroundColor: GlobalColor.colorPrincipal,
+        shape: const Border(bottom: BorderSide(color: Colors.white, width:1)),
+        elevation: 4,
+        leading: IconButton(
+          icon: const Icon(Icons.menu,color: Colors.white,),
+          onPressed: (){
+            scaffoldKey!.currentState!.openDrawer();
+          },
+        ),
+      ),
+      drawer: GlobalWidget().drawerPrincipal(context),
+
       body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

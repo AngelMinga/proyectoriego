@@ -1,13 +1,17 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+import 'package:proyectoriego/Models/topic_model.dart';
 
-class MqttHandler with ChangeNotifier {
+class MqttHandler extends  ChangeNotifier{
   final ValueNotifier<String> data = ValueNotifier<String>("");
+  ValueNotifier<List<TopicModel>> _listTopicNew = ValueNotifier<List<TopicModel>>([]);
   MqttServerClient? client;
   bool _statusButtonEncender=false;
   bool _statusButtonCancel=false;
-
+  //lista topic
+  List<TopicModel> _listTopic = [];
+  final ScrollController listScrollController = ScrollController();
 
   bool get statusButtonEncender => _statusButtonEncender;
 
@@ -19,6 +23,22 @@ class MqttHandler with ChangeNotifier {
 
   set statusButtonCancel(bool value) {
     _statusButtonCancel = value;
+    notifyListeners();
+  }
+
+
+  List<TopicModel> get listTopic => _listTopic;
+
+  set listTopic(List<TopicModel> value) {
+    _listTopic = value;
+    notifyListeners();
+  }
+
+
+  ValueNotifier<List<TopicModel>> get listTopicNew => _listTopicNew;
+
+  set listTopicNew(ValueNotifier<List<TopicModel>> value) {
+    _listTopicNew = value;
     notifyListeners();
   }
 
@@ -68,15 +88,20 @@ class MqttHandler with ChangeNotifier {
     print('MQTT_LOGS::Subscribing to the test/lol topic');
     const topic = 'estadoRiego';
     client!.subscribe(topic, MqttQos.atMostOnce);
+    client!.subscribe('suelo1', MqttQos.atMostOnce);
+    client!.subscribe('suelo2', MqttQos.atMostOnce);
+    client!.subscribe('suelo3', MqttQos.atMostOnce);
 
     client!.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
       final recMess = c![0].payload as MqttPublishMessage;
-      final pt =
-      MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      final pt = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
-      data.value = pt;
+      //data.value = pt;
       notifyListeners();
       print('MQTT_LOGS:: New data arrived: topic is <${c[0].topic}>, payload is $pt');
+
+      loadDataListTopic('${c[0].topic}',double.parse(pt));
+
       print('');
       if(pt==1){
         statusButtonEncender=false;
@@ -91,6 +116,14 @@ class MqttHandler with ChangeNotifier {
     return client!;
   }
 
+  loadDataListTopic(String topicData, double dataValor){
+    TopicModel topicModel= TopicModel();
+    topicModel.topic=topicData;
+    topicModel.data=dataValor;
+    _listTopicNew.value.add(topicModel);
+    notifyListeners();
+  }
+  
   void onConnected() {
     print('MQTT_LOGS:: Connected');
   }
@@ -128,4 +161,17 @@ class MqttHandler with ChangeNotifier {
     await connect();
     publishMessage(mensaje);
   }
+  
+  
+  
+  /// 
+  moveScrollController() async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    listScrollController.animateTo(
+      listScrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+  }
+
 }

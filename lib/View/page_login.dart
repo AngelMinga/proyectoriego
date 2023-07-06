@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:proyectoriego/Api/api_rest.dart';
 import 'package:proyectoriego/Controller/provider_login.dart';
 import 'package:proyectoriego/Util/global_preference.dart';
+import 'package:proyectoriego/View/page_huerto.dart';
 import 'package:proyectoriego/View/page_navigation.dart';
 
 import '../Util/global_color.dart';
@@ -166,7 +167,7 @@ class _PageLoginState extends State<PageLogin> {
                       if(t == 1){
                         GlobalPreference().setStateLogin(true);
                        // GlobalPreference().saveUser(data);
-                        Navigator.of(context).pushNamedAndRemoveUntil(PageNavigation.routePage, (Route<dynamic> route) => false);
+                        Navigator.of(context).pushNamedAndRemoveUntil(PageHuerto.routePage, (Route<dynamic> route) => false);
                       }
                 });
                 }else{

@@ -7,7 +7,7 @@ import '../Util/global_color.dart';
 import '../Util/global_widget.dart';
 import '../Util/mqttResponse.dart';
 
-class PageNavigation extends StatefulWidget {
+/*class PageNavigation extends StatefulWidget {
   static String routePage = 'viewHome';
 
   @override
@@ -45,7 +45,7 @@ class _PageNavigationState extends State<PageNavigation> {
       drawer: GlobalWidget().drawerPrincipal(context),
       body: SafeArea(
         child: PageHuerto(),
-/*        PageView(
+*//*        PageView(
           controller: providerPrincipal!.pageController,
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
@@ -53,9 +53,9 @@ class _PageNavigationState extends State<PageNavigation> {
             PageHureto(),
             PageEstadistica(),
           ],
-        ),*/
+        ),*//*
       ),
-      /*bottomNavigationBar: ConvexAppBar(
+      *//*bottomNavigationBar: ConvexAppBar(
         style: TabStyle.reactCircle,
         color: Colors.black,
         activeColor: Colors.amber,
@@ -69,7 +69,7 @@ class _PageNavigationState extends State<PageNavigation> {
           print('indexItem $i');
           providerPrincipal!.paginaActual = i;
         },
-      ),*/
+      ),*//*
     );
   }
-}
+}*/
